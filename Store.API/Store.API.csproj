@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <AssemblyName>Store.API</AssemblyName>
+        <RootNamespace>Store.API</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Store.Application\Store.Application.csproj" />
+      <ProjectReference Include="..\Store.Infrastructre\Store.Infrastructre.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="FluentValidation" Version="8.6.2" />
+    </ItemGroup>
+
+</Project>

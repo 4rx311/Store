@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <AssemblyName>Store.Infrastructre</AssemblyName>
+        <RootNamespace>Store.Infrastructre</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Autofac" Version="5.1.2" />
+      <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="6.0.0" />
+      <PackageReference Include="FluentValidation" Version="8.6.2" />
+      <PackageReference Include="MediatR" Version="8.0.1" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.0-preview.2.20160.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Store.Domain\Store.Domain.csproj" />
+      <ProjectReference Include="..\Store.Application\Store.Application.csproj" />
+    </ItemGroup>
+
+</Project>
