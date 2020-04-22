@@ -1,11 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Autofac;
-using Store.API.Products;
-using Store.Application.Products.RegisterProduct;
-using Store.Infrastructre;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using Store.API.Orders;
+using Store.API.Products;
+using Store.Application.Orders.CreateOrder;
+using Store.Application.Products.RegisterProduct;
+using Store.Infrastructre;
+using ProductDto = Store.Application.Orders.CreateOrder.ProductDto;
 
 namespace Store.API
 {
@@ -35,16 +39,28 @@ namespace Store.API
                 var productDto1 = await productController.Register(new RegisterProductRequest()
                 {
                     Name = "Apple",
-                    Cost = 150d
+                    Cost = 150,
+                    Currency = "Rub"
                 });
                 Console.WriteLine($"{productDto1.Name}, {productDto1.Cost}");
 
                 var productDto2 = await productController.Register(new RegisterProductRequest()
                 {
-                    Name = "Apple",
-                    Cost = 170d
+                    Name = "Apple Yellow",
+                    Cost = 170,
+                    Currency = "Rub"
                 });
                 Console.WriteLine($"{productDto2.Name}, {productDto2.Cost}");
+
+                var orderController = new OrderContoller(mediator);
+                var orderId = await orderController.Create(new CreateOrderRequest(
+                    "Rub",
+                    new List<ProductDto>() {new ProductDto(productDto2.ID, 5)},
+                    "DDD",
+                    "ddd@slark.com"
+                ));
+
+                Console.WriteLine(orderId.Id);
             }
         }
 

@@ -1,6 +1,8 @@
-﻿using System.Threading;
+﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Store.Domain.Products;
+using Store.Domain.SharedKernel;
 
 namespace Store.Application.Products.RegisterProduct
 {
@@ -18,10 +20,11 @@ namespace Store.Application.Products.RegisterProduct
 
         public async Task<ProductDto> Handle(RegisterProductCommand request, CancellationToken cancellationToken)
         {
-            var product = Product.Create(request.Name, request.Cost, _uniquenessChecker);
+            var product = Product.Create(request.Name,
+                new List<ProductPrice>() {new ProductPrice(new MoneyValue(request.Cost, request.Currency))});
             await _repository.AddAsync(product);
 
-            return new ProductDto() {ID = product.ID, Cost = product.Cost, Name = product.Name};
+            return new ProductDto() {ID = product.ProductId.Value, Cost = product.GetPrice(request.Currency).Value, Name = product.Name};
         }
     }
 }

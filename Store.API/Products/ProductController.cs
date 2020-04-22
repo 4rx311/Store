@@ -1,8 +1,6 @@
 ﻿using System.Threading.Tasks;
-using Store.Application;
-using Store.Application.Products;
-using Store.Application.Products.RegisterProduct;
 using MediatR;
+using Store.Application.Products.RegisterProduct;
 
 namespace Store.API.Products
 {
@@ -17,7 +15,7 @@ namespace Store.API.Products
 
         public async Task<ProductDto> Register(RegisterProductRequest request)
         {
-            var command = new RegisterProductCommand(request.Name, request.Cost);
+            var command = new RegisterProductCommand(request.Name, request.Cost, request.Currency);
             var result = await _mediator.Send(command);
 
             return result;

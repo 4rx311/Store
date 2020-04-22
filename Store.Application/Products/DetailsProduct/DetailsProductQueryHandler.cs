@@ -15,7 +15,7 @@ namespace Store.Application.Products.DetailsProduct
 
         public async Task<ProductDto> Handle(DetailsProductQuery request, CancellationToken cancellationToken)
         {
-            var product = await _repository.GetAsync(request.ID);
+            var product = await _repository.GetAsync(request.Name);
             return new ProductDto() {Name = product.Name};
         }
     }

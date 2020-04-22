@@ -1,11 +1,10 @@
 ﻿using System;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using Store.Domain.Products;
-using Store.Infrastructre.Domain;
-using Store.Infrastructre.Domain.Products;
-using Store.Infrastructre.Processing.Modules;
 using Microsoft.Extensions.DependencyInjection;
+using Store.Infrastructre.Database;
+using Store.Infrastructre.Domain;
+using Store.Infrastructre.Processing.Modules;
 
 namespace Store.Infrastructre
 {
@@ -23,9 +22,10 @@ namespace Store.Infrastructre
             //Объединяем сервисы DI Net Core & Autofac
             container.Populate(services);
 
-            container.RegisterType<ProductRepository>().As<IProductRepository>();
             container.RegisterModule<MediatorModule>();
             container.RegisterModule<DomainModule>();
+            container.RegisterModule<ProcessingModule>();
+            container.RegisterModule<DataAccessModule>();
 
             var buildContainer = container.Build();
             CompositionRoot.SetContainer(buildContainer);

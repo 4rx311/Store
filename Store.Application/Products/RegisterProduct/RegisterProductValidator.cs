@@ -8,7 +8,7 @@ namespace Store.Application.Products.RegisterProduct
         public RegisterProductValidator(IProductUniquenessChecker uniquenessChecker)
         {
             RuleFor(p => p.Name).NotEmpty();
-            RuleFor(p => p.Cost).GreaterThan(0d);
+            RuleFor(p => p.Cost).GreaterThan(0);
             RuleFor(p => p.Name)
                 .Must(name => uniquenessChecker.IsUniqueName(name) == true)
                 .WithMessage(command => $"Продукт с названием '{command.Name}' уже содержится в базе");

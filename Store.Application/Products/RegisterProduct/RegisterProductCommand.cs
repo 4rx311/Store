@@ -2,13 +2,15 @@
 {
     public sealed class RegisterProductCommand : ICommand<ProductDto>
     {
-        public RegisterProductCommand(string name, double cost)
+        public RegisterProductCommand(string name, decimal cost, string currency)
         {
             Name = name;
             Cost = cost;
+            Currency = currency;
         }
 
         public string Name { get; }
-        public double Cost { get; }
+        public decimal Cost { get; }
+        public string Currency { get; }
     }
 }

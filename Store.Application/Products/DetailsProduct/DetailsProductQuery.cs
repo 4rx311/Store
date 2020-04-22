@@ -1,14 +1,12 @@
-﻿using System;
-
-namespace Store.Application.Products.DetailsProduct
+﻿namespace Store.Application.Products.DetailsProduct
 {
     public sealed class DetailsProductQuery : IQuery<ProductDto>
     {
-        public DetailsProductQuery(Guid id)
+        public DetailsProductQuery(string name)
         {
-            ID = id;
+            Name = name;
         }
 
-        public Guid ID { get; }
+        public string Name { get; }
     }
 }

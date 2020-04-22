@@ -1,25 +1,33 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Store.Domain.SeedWork;
-using Store.Domain.SeedWork.Exceptions;
+using Store.Domain.SharedKernel;
 
 namespace Store.Domain.Products
 {
-    public class Product
+    public class Product : Entity
     {
-        private Product(string name, double cost)
+        private Product(string name, List<ProductPrice> prices)
         {
-            ID = Guid.NewGuid();
+            ProductId = new ProductId(Guid.NewGuid());
             Name = name;
-            Cost = cost;
+            _prices = prices;
         }
 
-        public Guid ID { get; }
+        public ProductId ProductId { get; }
         public string Name { get; }
-        public double Cost { get; }
 
-        public static Product Create(string name, double cost, IProductUniquenessChecker uniquenessChecker)
+        public readonly List<ProductPrice> _prices;
+
+        public MoneyValue GetPrice(string currency)
         {
-            var result = new Product(name, cost);
+            return _prices.Single(p => p.Value.Currency == currency).Value;
+        }
+
+        public static Product Create(string name, List<ProductPrice> prices)
+        {
+            var result = new Product(name, prices);
             return result;
         }
     }

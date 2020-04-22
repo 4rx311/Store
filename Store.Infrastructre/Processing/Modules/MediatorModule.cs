@@ -20,7 +20,8 @@ namespace Store.Infrastructre.Processing.Modules
             {
                 typeof(IRequestHandler<,>),
                 typeof(IRequestHandler<>),
-                typeof(IValidator<>)
+                typeof(IValidator<>),
+                typeof(INotificationHandler<>)
             };
 
             //регистрируем все реализации типов MediatR в Application
@@ -30,6 +31,7 @@ namespace Store.Infrastructre.Processing.Modules
                 builder.RegisterAssemblyTypes(applicationAssembly)
                     .AsClosedTypesOf(mediatorType)
                     .AsImplementedInterfaces();
+
             }
 
             //регистрируем фабрику MediatR для Request & Notification handlers
